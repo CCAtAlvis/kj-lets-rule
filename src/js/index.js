@@ -6,6 +6,7 @@ const { request } = require('graphql-request');
 const api = 'https://kjsce-test.herokuapp.com/v1alpha1/graphql';
 
 const $ = require('jquery');
+let user;
 
 const loginUser = (e) => {
   e.preventDefault();
@@ -24,7 +25,7 @@ const loginUser = (e) => {
   }`
 
   request(api, query).then(data => {
-    let user = data.admin[0];
+    user = data.admin[0];
     // console.log(user);
 
     if (!user) {
@@ -33,9 +34,27 @@ const loginUser = (e) => {
 
     if (password === user.password) {
       console.log('user logged in!');
-      // load main view
+      loadMainPage();
     } else {
       // show error
     }
+  });
+}
+
+const loadMainPage = () => {
+  console.log('loading main page');
+  $('#login-div').fadeOut('slow');
+  $('#main-page-div').fadeIn('slow');
+
+  let query = `{
+    posts (
+      where: {category: {_eq: ${user.category}}},
+      order_by: time_des
+    ) {
+      
+    }
+  }`
+
+  request(api, query).then(data => {
   });
 }

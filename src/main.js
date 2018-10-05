@@ -12,17 +12,17 @@ let bwOption = {
 	// transparent makes the title bar transparent
 	// other wise title bar will take system default color
 	// transparent: true,
-	width: 300,
+	width: 1000,
 	minWidth: 300,
 	// maxWidth: 300,
 
-	height: 450,
+	height: 900,
 	minHeight: 450,
 	// maxHeight: 450,
 	// useContentSize: true,
 	// fullscreen : true,
 	// skipTaskbar: true,
-	autoHideMenuBar: true,
+	//autoHideMenuBar: true,
 };
 
 function createWindow() {

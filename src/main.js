@@ -31,7 +31,7 @@ function createWindow() {
 
 	// and load the index.html of the app.
 	win.loadURL(url.format({
-		pathname: path.join(__dirname, 'index.html'),
+		pathname: path.join(__dirname, 'home.html'),
 		protocol: 'file:',
 		slashes: true
 	}));

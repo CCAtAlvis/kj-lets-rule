@@ -18,9 +18,9 @@ let bwOption = {
 	minHeight: 450,
 	// maxHeight: 450,
 	// useContentSize: true,
-	// fullscreen : true,
+	fullscreen : true,
 	// skipTaskbar: true,
-	//autoHideMenuBar: true,
+	autoHideMenuBar: true,
 };
 
 function createWindow() {

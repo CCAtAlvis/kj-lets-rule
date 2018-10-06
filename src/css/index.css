@@ -1,0 +1,112 @@
+select {
+    width: 150px;
+    margin: 10px;
+}
+
+#main-page-div { display: none;}
+/* #login-div { display: none;} */
+
+.card {
+    margin: auto;
+    /* background: rgb(69, 71, 65); */
+    /* background: rgb(193,193,193); */
+    background: #ddd;
+    padding: 10px;
+    min-height: 200px;
+    /* border-radius: 25px; */
+    height: auto;
+    overflow-y: hidden;
+    display: flex;
+}
+
+.card > div {float: left;}
+
+.image-box {
+    width:25%;
+    height:250px;
+    background-color: #999;
+    border-radius: 15px;
+}
+
+.text {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 20px;
+}
+
+.top {
+    height: auto;
+    overflow-y: hidden;
+    display: flex;
+}
+
+.top > div {
+    float: left;
+}
+
+.top .left {
+    width: 70%;
+}
+
+.top .right {
+    width: 30%;
+}
+
+
+.middle {
+    position: relative;
+    margin-top: 30px;
+    width: 100% !important;
+    /* background: green; */
+    height: auto;
+    overflow-y: hidden;
+    display: flex;
+}
+
+.statu-bar {
+    position: relative;
+    height: auto;
+    overflow-y: hidden;
+    display: flex;
+    min-width: 500px !important;
+}
+
+.progress-bar-my {
+    position: relative;
+    z-index: 30;
+    height: 30px;
+    width: 100%;
+    min-width: 500px !important;
+}
+
+.progress-bar-my > div {
+    height: 100%;
+}
+
+.progress-0 {
+    width: 10%;
+    background: red;
+}
+
+.progress-33 {
+    width: 33.33%;
+    background: orange;
+}
+
+.progress-66 {
+    width: 66.66%;
+    background: blue;
+}
+
+.progress-100 {
+    width: 100%;
+    background: green;
+}
+
+
+
+
+
+.bottom {
+    margin-top: 30px;
+}

@@ -77,6 +77,10 @@ const loadByTrending = () => {
     // console.log(data);
     data.post.forEach(e => {
       // console.log(e);
+      var pro = "progress-0";
+      if(e.status == 1) {
+        pro = "progress-100"
+      }
 
       var html = `
       <div class="card">
@@ -86,7 +90,7 @@ const loadByTrending = () => {
         <div class="top">
           <div class="left">
             <div class="title">${e.title}</div>
-            <div class="description">${e.description}</div>
+            <div class="description">${e.content}</div>
           </div>
           
           <div class="right">
@@ -98,10 +102,9 @@ const loadByTrending = () => {
 
         <div class="middle">
           <div class="status-bar">
-            <button type="button" class="btn btn-warning">Registered</button>
-            <button type="button" class="btn btn-success" style="float:right;">Solved</button>
+            <button type="button" data-post="${e.id}" onclick="clk(this)" class="btn btn-success solved" style="float:right;">Solved</button>
             <div class="progress-bar-my">
-              <div class="progress progress-0"></div>
+              <div class="progress ${pro}"></div>
             </div>
           </div>
         </div>
@@ -155,23 +158,9 @@ const loadByRecent = () => {
     data.post.forEach(e => {
       // console.log(e);
 
-      var pro = "progress";
-      switch (e.status) {
-        case "0":
-        pro += "-0";
-        break;
-
-        case "1":
-        pro += "-33";
-        break;
-
-        case "2":
-        pro += "-66";
-        break;
-
-        case "3":
-        pro += "-100";
-        break;
+      var pro = "progress-0";
+      if(e.status == 1) {
+        pro = "progress-100"
       }
 
       var html = `
@@ -182,7 +171,7 @@ const loadByRecent = () => {
         <div class="top">
           <div class="left">
             <div class="title">${e.title}</div>
-            <div class="description">${e.description}</div>
+            <div class="description">${e.content}</div>
           </div>
           
           <div class="right">
@@ -194,8 +183,7 @@ const loadByRecent = () => {
 
         <div class="middle">
           <div class="status-bar">
-            <button type="button" class="btn btn-warning">Registered</button>
-            <button type="button" class="btn btn-success" style="float:right;">Solved</button>
+            <button type="button" data-user="${e.user_id}" data-post="${e.id}" onclick="clk(this)" class="btn btn-success solved" style="float:right;">Solved</button>
             <div class="progress-bar-my">
               <div class="progress ${pro}"></div>
             </div>
@@ -286,3 +274,74 @@ $('#trending').click(function(event) {
   $('#trending').addClass('active').siblings().removeClass('active');
   loadByTrending();
 });
+
+
+// $('.sloved').on('click', '.btn', function() {
+//   console.log("asd");
+// });
+
+// $('.card').click( function () {
+//   alert("heeh");
+//   console.log('hehe')
+//   console.log($(this).attr('data-post'))
+// });
+
+// $('button').click( function () {
+//   alert("heeh");
+//   console.log('hehe')
+//   console.log($(this).attr('data-post'))
+// });
+
+
+function clk (e) {
+  // console.log("adjgfdajgjasd");
+  // e.preventDefault()
+  // console.log(this);
+  // console.log (this.data)
+  // console.log(e.getAttribute("data-post"))
+  var id = e.getAttribute("data-post");
+  var user_id = e.getAttribute("data-user");
+  id = parseInt(id);
+  user_id = parseInt(user_id);
+
+  let query = `mutation {
+    update_post (
+      where: {id: {_eq: ${id}}},
+      _set: {status: "1"}
+    ) {
+      affected_rows
+    }
+  }`;
+
+  request(api, query).then(data=> {
+    console.log(data);
+    console.log(user_id);
+    // alert(data);
+    query = `query {
+      user_by_pk(id: ${user_id}) {
+        score
+      }
+    }`;
+
+    request(api, query).then(data => {
+      console.log(data);
+      score = data.user_by_pk.score;
+      score = parseInt(score);
+      console.log(score);
+      score++;
+
+      query = `mutation {
+        update_user (
+          where: {id: {_eq: ${user_id}}},
+          _set: {score: ${score}}
+          ) {
+          affected_rows
+        }
+      }`;
+
+      request(api, query).then(data => {
+        console.log(data);
+      })
+    })
+  })
+}
